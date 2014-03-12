@@ -1,0 +1,7 @@
+= semantic_form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
+	= f.inputs do
+		= f.input :email, :label => false, :placeholder => "Email"
+		= f.input :password, :label => false, :placeholder => "Password"
+		= f.input :remember_me, :as => :boolean, :input_html => { :value => '1' }
+	= f.actions do
+		= f.button :submit, 'Sign In'
