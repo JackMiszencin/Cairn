@@ -1,4 +1,4 @@
 %h1 PlaceTags
 
 -unless current_user
-	= render :partial => "/users/form", :locals => {:resource => @user, :resource_name => :user_name}
+	= render :partial => "/users/sessions/form", :locals => {:resource => @user, :resource_name => :user}
