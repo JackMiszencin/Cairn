@@ -35,6 +35,7 @@ group :development, :test do
 	gem 'rspec-rails'
 	gem 'capybara', '1.1.4'
 	gem 'guard-spork'
+	gem 'factory_girl_rails'
 	gem 'spork-rails', git: 'http://github.com/railstutorial/spork-rails.git'
 end
 

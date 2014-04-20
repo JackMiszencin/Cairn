@@ -1,4 +1,5 @@
 %h1 PlaceTags
-
+-if flash[:notice]
+	%p.notice= flash[:notice]
 -unless current_user
 	= render :partial => "/users/sessions/form", :locals => {:resource => @user, :resource_name => :user}
