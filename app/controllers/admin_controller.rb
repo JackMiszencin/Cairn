@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
 	before_filter :authenticate_admin_user!
+	before_filter :set_admin_styles
 
 	def index
 	end
@@ -8,5 +9,9 @@ class AdminController < ApplicationController
   	return admin_root_path
   end
 
+
+  def set_admin_styles
+  	@admin_page = true
+  end
 
 end
