@@ -1,0 +1,16 @@
+%table
+%thead
+	%tr
+		%td Tag
+		%td User
+		%td Created
+		%td View
+
+%tbody
+	- @change_requests.each do |cr|
+		%tr.change-request
+			%td cr.tag.title
+			%td cr.user.name
+			%td cr.created_at
+			%td
+				=link_to 'View', edit_admin_change_request_path, :class => 'view'

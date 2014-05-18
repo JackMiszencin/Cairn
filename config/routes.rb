@@ -4,6 +4,7 @@ Cairn::Application.routes.draw do
 
   scope "_admin", :as => "admin" do
     root :to => "admin#index"
+    resources :change_requests, :module => "admin"
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

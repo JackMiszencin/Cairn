@@ -1,0 +1,11 @@
+.container-fluid
+	.row
+		.col-md-1
+		.col-md-10
+			%h1.text-left Cairn
+		.col-md-1
+	.row
+		-if @admin_page
+			= render :partial => 'admin/skeleton/menu_bar'
+		-else
+			= render :partial => 'skeleton/menu_bar'

@@ -1,0 +1,28 @@
+html{
+	height: 100%;
+}
+
+body{
+	height:100%;
+}
+
+body.admin-page{
+	background: url('satellite-edit.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#page-header, #page-body{
+	opacity: 0.85;
+}
+
+#page-body{
+	background-color:white;
+	min-height:95%;
+}
+
+#page-header{
+	background-color:black;
+	color:white;
+}
