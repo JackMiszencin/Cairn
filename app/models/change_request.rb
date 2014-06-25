@@ -10,4 +10,6 @@ class ChangeRequest < ActiveRecord::Base
 			)
 		} % [longitude, latitude, distance])
 	}
+
+	scope :unresolved, -> {where('resolved IS NOT TRUE')}
 end

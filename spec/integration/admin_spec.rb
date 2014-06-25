@@ -22,5 +22,5 @@ def admin_sign_in
 end
 
 def create_change_request
-
+	create(:change_request)
 end

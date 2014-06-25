@@ -15,3 +15,18 @@ TODO: Write out the commands necessary to pull the tarball and compile it. Tarba
 
 To get the postgis extension, use the following (assuming you're using postgresql version 9.1):
 sudo apt-get install postgresql-9.1-postgis
+
+
+
+
+TODO: For models using rgeo-based spatial data, the documentation suggests the following sort of configuration. Should probably do this some time soon: 
+
+class MySpatialTable < ActiveRecord::Base
+
+  # By default, use the GEOS implementation for spatial columns.
+  self.rgeo_factory_generator = RGeo::Geos.factory_generator
+
+  # But use a geographic implementation for the :lonlat column.
+  set_rgeo_factory_for_column(:lonlat, RGeo::Geographic.spherical_factory(:srid => 4326))
+
+end

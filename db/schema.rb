@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603013457) do
+ActiveRecord::Schema.define(version: 20140609020352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20140603013457) do
 
   create_table "change_requests", force: true do |t|
     t.spatial  "lonlat",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "resolved"
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.spatial  "center",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.float    "radius"
+    t.spatial  "shape",      limit: {:srid=>4326, :type=>"polygon", :geographic=>true}
     t.datetime "created_at"
     t.datetime "updated_at"
   end
