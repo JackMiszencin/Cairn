@@ -6,10 +6,12 @@ feature 'admin tag change manager' do
 		create_change_request
 	end
 	scenario 'admin_user approves change' do
+		@change_request.update_attributes(:lonlat => 'POINT(-122 47)')
 		click_link('Manage Change Requests')
-		click_link('.change-request .view')
-		click_button('.approve')
-		expect(@tag.radius).to eq 5
+		click_link('Edit')
+		click_button('Approve Change Request')
+		expect(expect(page).to(have_css 'h1#index-title', :text => "Change Requests"))
+		expect(@change_request.tag.center.x).to eq -122
 	end
 end
 
@@ -22,5 +24,9 @@ def admin_sign_in
 end
 
 def create_change_request
-	create(:change_request)
+	@change_request = create(:change_request)
+	t = create(:tag)
+	u = create(:user)
+	@change_request.update_attributes(:tag_id => t.id, :user_id => u.id)
+	@change_request.save
 end

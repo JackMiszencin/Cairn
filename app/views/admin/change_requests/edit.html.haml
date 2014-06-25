@@ -1,0 +1,4 @@
+%p hello
+= form_tag admin_change_request_approve_path(@change_request.id), :method => :put do
+	=submit_tag "Approve Change Request", :class => 'btn'
+

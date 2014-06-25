@@ -1,0 +1,10 @@
+en:
+  helpers:
+    link_to:
+      new: 'New %{model}'
+      show: 'Show'
+      index: '%{model}'
+      edit: 'Edit'
+      destroy: 'Delete'
+      destroy_confirm: 'Are you sure?'
+      back: 'Back'

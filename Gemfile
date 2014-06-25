@@ -27,9 +27,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'haml'
-gem 'formtastic', git: 'https://github.com/justinfrench/formtastic.git'
 gem 'devise'
+gem 'formtastic', git: 'https://github.com/justinfrench/formtastic.git'
+gem 'haml'
+gem 'link_to_action'
 
 group :development, :test do
 	gem 'rspec-rails'

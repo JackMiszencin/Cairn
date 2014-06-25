@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609020352) do
+ActiveRecord::Schema.define(version: 20140625023938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20140609020352) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -40,6 +42,8 @@ ActiveRecord::Schema.define(version: 20140609020352) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "resolved"
+    t.integer  "user_id"
+    t.integer  "tag_id"
   end
 
   create_table "tags", force: true do |t|
@@ -64,6 +68,8 @@ ActiveRecord::Schema.define(version: 20140609020352) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

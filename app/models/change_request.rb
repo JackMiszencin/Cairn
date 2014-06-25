@@ -1,4 +1,6 @@
 class ChangeRequest < ActiveRecord::Base
+	belongs_to :user
+	belongs_to :tag
 
 	# Takes in a distance in meters. Remember, feed in the x-coordinate first, then the y.
 	scope :within_distance, -> (longitude, latitude, distance) {
@@ -12,4 +14,8 @@ class ChangeRequest < ActiveRecord::Base
 	}
 
 	scope :unresolved, -> {where('resolved IS NOT TRUE')}
+
+	def approve
+		ok = self.tag.update_attributes(:center => self.lonlat)
+	end
 end
