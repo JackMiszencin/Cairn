@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625023938) do
+ActiveRecord::Schema.define(version: 20140628022902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,12 +38,15 @@ ActiveRecord::Schema.define(version: 20140625023938) do
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "change_requests", force: true do |t|
-    t.spatial  "lonlat",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "resolved"
     t.integer  "user_id"
     t.integer  "tag_id"
+    t.spatial  "center",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.spatial  "shape",      limit: {:srid=>4326, :type=>"polygon", :geographic=>true}
+    t.float    "radius"
+    t.string   "name"
   end
 
   create_table "tags", force: true do |t|
