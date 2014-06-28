@@ -7,6 +7,8 @@ Cairn::Application.routes.draw do
     resources :change_requests, :module => "admin"
     put 'change_requests/:id/approve' => 'admin/change_requests#approve', :as => 'change_request_approve'
   end
+
+  resources :organizations
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

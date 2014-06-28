@@ -1,5 +1,8 @@
 %h1 PlaceTags
 -if flash[:notice]
 	%p.notice= flash[:notice]
--unless current_user
+-if current_user
+	-@organizations.each do |o|
+		=link_to o.name, organization_path(o.id), :class => 'organization_name' 
+-else current_user
 	= render :partial => "/users/sessions/form", :locals => {:resource => @user, :resource_name => :user}
