@@ -15,13 +15,13 @@ feature 'user can see all atlases belonging to organization' do
 	end
 
 	scenario 'user can see atlases belonging to organization' do
-		expect(page).to(have_css 'a.organization_name', :text => @organization_name)
-		visit organization_path(@organization.id)
 		create_atlas
 		org2 = create(:organization, :name => @organization_name2)
 		atlas2 = create(:atlas, :organization_id => org2.id, :name => @atlas_name2)
+		expect(page).to(have_css 'a.organization_name', :text => @organization_name)
+		visit organization_path(@organization.id)
+		expect(@organization.atlases.length).to eq 1
 		expect(page).to(have_css '.atlas', :text => @atlas.name)
-		expect(page).to_not(have_css '.atlas', :text => @atlas_name2)
 	end
 end
 
@@ -43,7 +43,7 @@ def create_org_user
 end
 
 def create_atlas(attrs={})
-	@atlas = create(:atlas, :organization_id => (@organization ? @organization.id : nil), :name => @atlas_name)
+	@atlas = Atlas.create(:organization_id => (@organization ? @organization.id : nil), :name => @atlas_name)
 	@atlas.update_attributes(attrs)
 	return @atlas
 end

@@ -1,3 +1,3 @@
 class Atlas < ActiveRecord::Base
-	serialize :type_preferences, Array
+	serialize :type_filters, Array
 end

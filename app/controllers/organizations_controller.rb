@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
 	def show
 		get_organization
-		@atlases = @organization.atlases
+		@atlases = Atlas.where(:organization_id => @organization.id)
 	end
 
 	def get_organization
