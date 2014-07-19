@@ -1,0 +1,10 @@
+.row
+	.col-6
+		%a#show_signup{:href => ""} Sign In
+	.col-6
+		%a#show_signin{:href => ""}	Sign Up
+.row
+	.col-12#signin_form
+		= render :partial => "/users/sessions/form", :locals => {:resource => @user, :resource_name => :user}
+	.col-12#signup_form
+		= render :partial => "/users/registrations/form", :locals => {:resource => @user, :resource_name => :user}		

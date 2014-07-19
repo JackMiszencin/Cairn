@@ -1,2 +1,8 @@
-=link_to "Home", admin_root_path
-=link_to "Manage Change Requests", admin_change_requests_path
+.row
+	.col-md-10.col-sm-10
+		=link_to "Home", admin_root_path
+		=link_to "Manage Change Requests", admin_change_requests_path
+	.col-md-10.col-sm-2
+		-if current_admin_user
+			= form_tag destroy_admin_user_session_path, :method => :delete do
+				= submit_tag "Logout"
