@@ -6,7 +6,7 @@ body{
 	height:100%;
 }
 
-body.admin-page{
+body.standard-page{
 	background: url('satellite-edit.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -26,3 +26,11 @@ body.admin-page{
 	background-color:black;
 	color:white;
 }
+
+
+
+/*
+	Forms
+*/
+
+form.formtastic ol {list-style: none;}

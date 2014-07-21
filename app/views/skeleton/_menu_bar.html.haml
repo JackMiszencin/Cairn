@@ -1,1 +1,7 @@
-=link_to "Home", root_path
+.row
+	.col-md-10.col-sm-10
+		=link_to "Home", root_path
+	.col-md-2.col-sm-2
+		-if current_user
+			= form_tag destroy_user_session_path, :method => :delete do
+				= submit_tag "Logout"

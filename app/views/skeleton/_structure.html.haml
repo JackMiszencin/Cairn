@@ -3,7 +3,7 @@
 	= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
 	= javascript_include_tag "application", "data-turbolinks-track" => true
 	= csrf_meta_tags
-%body.container-fluid{:class => @admin_page ? 'admin-page' : ''}
+%body.container-fluid{:class => @admin_page ? 'admin-page' : 'standard-page'}
 	.col-md-1
 	.col-md-10{:style => "height:100%;"}
 		.container-fluid{:style => "height:100%;"}

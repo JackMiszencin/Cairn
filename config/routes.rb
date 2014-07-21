@@ -1,6 +1,6 @@
 Cairn::Application.routes.draw do
   devise_for :admin_users, :path => "_admin", controllers: { sessions: "admin/sessions" }
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   scope "_admin", :as => "admin" do
     root :to => "admin#index"
