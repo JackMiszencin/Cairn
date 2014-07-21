@@ -5,4 +5,4 @@
 	.col-md-2.col-sm-2
 		-if current_admin_user
 			= form_tag destroy_admin_user_session_path, :method => :delete do
-				= submit_tag "Logout"
+				= link_to_submit "Logout"

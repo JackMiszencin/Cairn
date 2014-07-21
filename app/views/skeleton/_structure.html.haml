@@ -7,8 +7,9 @@
 	.col-md-1
 	.col-md-10{:style => "height:100%;"}
 		.container-fluid{:style => "height:100%;"}
+			#page-header
+				= render :partial => '/skeleton/page_header'
 			#page-body
-				#page-header
-					= render :partial => '/skeleton/page_header'
-				= yield
+				.container-fluid{:style => "height:100%;"}
+					= yield
 	.col-md-1

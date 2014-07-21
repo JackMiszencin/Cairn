@@ -34,3 +34,20 @@ body.standard-page{
 */
 
 form.formtastic ol {list-style: none;}
+
+
+/*
+	JS helper classes
+*/
+
+.hide {
+	display:none;
+}
+
+.show {
+	display:block;
+}
+
+span.js-link {
+	cursor: pointer;
+}

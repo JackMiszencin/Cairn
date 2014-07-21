@@ -1,10 +1,12 @@
 .row
 	.col-6
-		%a#show_signup{:href => ""} Sign In
+		%span.js-link#show_signin Sign In
 	.col-6
-		%a#show_signin{:href => ""}	Sign Up
+		%span.js-link#show_signup	Sign Up
 .row
 	.col-12#signin_form
 		= render :partial => "/users/sessions/form", :locals => {:resource => @user, :resource_name => :user}
-	.col-12#signup_form
+	.col-12#signup_form.hide
 		= render :partial => "/users/registrations/form", :locals => {:resource => @user, :resource_name => :user}		
+
+=javascript_include_tag 'views/page/signin_signup'
