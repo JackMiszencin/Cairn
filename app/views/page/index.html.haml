@@ -2,7 +2,8 @@
 -if flash[:notice]
 	%p.notice= flash[:notice]
 -if current_user
-	-@organizations.each do |o|
-		=link_to o.name, organization_path(o.id), :class => 'organization_name' 
+	%p.organization_name= @organization.name
+	-unless @organization.realm
+		=render :partial => "/tags/form"
 -else
 	= render :partial => "signin_signup"
