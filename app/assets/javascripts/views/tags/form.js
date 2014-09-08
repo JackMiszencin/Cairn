@@ -23,7 +23,7 @@ function addCircle(map, markerPoint, markerCircle){
 	$("#tag_type_id").on('click', function(){
 		var typeId = String($("#tag_type_id").val());
 		typeId = "#" + typeId;
-		markerCircle.setRadius(Number($(typeId).val()))
+		markerCircle.setRadius(Number($(typeId).val()));
 	});
 };
 

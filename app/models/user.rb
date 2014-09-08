@@ -11,9 +11,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name
   validates_presence_of :last_name
-  validate :ensure_organization_id
-
-  after_create :create_org_user
+  after_create :ensure_organization_id
 
   def name
   	[self.first_name.to_s, self.last_name.to_s].join(" ")
@@ -48,16 +46,19 @@ class User < ActiveRecord::Base
  		if self.signup_organization_id
  			org = Organization.where(:id => self.signup_organization_id).last
       if org
-        ok = org.signup_codes.include? self.organization_code
-        self.errors.add(:organization_code, "code is not valid")
+        ok = (org.signup_codes.include? self.organization_code) || org.signup_codes.nil? || org.signup_codes.empty?
+        self.errors.add(:organization_code, "code is not valid") unless ok
       else
         self.errors.add(:signup_organization_id, "organization does not exist")
       end
  		else
  			org = Organization.new(:name => self.name)
  			ok = org.save
-      self.signup_organization_id = org.id
-      self.signup_organization_manager = true
+      if ok
+        self.signup_organization_id = org.id
+        self.signup_organization_manager = true
+        ok = create_org_user
+      end
  		end
  		return ok
  	end

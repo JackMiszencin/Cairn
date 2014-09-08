@@ -1,6 +1,8 @@
 .row
-	.col-md-2
-	.col-md-8
+	.col-md-6
 		#map-canvas
-	.col-md-2
-.row
+	.col-md-6
+		= semantic_form_for tag, :url => set_organization_realm_path(@organization.id) do |f|
+			=f.inputs do
+				=f.input :name, :label => false, :placeholder => 'Name'
+				=f.input :radius, :label => false, :placeholder => 'Radius (meters)'
