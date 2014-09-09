@@ -51,3 +51,7 @@ form.formtastic ol {list-style: none;}
 span.js-link {
 	cursor: pointer;
 }
+
+#map-canvas {
+	height:50vh;
+}

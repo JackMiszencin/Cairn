@@ -1,6 +1,7 @@
 var radiusDefault = Number($("#tag_radius").val());
+var mapScope, realmLat, realmLng, markerCircle;
 
-function setDefaults(realmLat, realmLng, mapScope) {
+function setDefaults() {
 	var radiusDegreesY = Number($("#hidden_realm_radius").val() || 90);
 	var radiusDegreesX = Number($("#hidden_realm_radius").val() || 180);
 	realmLat = Number($("#hidden_realm_lat").val() || 0);
@@ -10,7 +11,7 @@ function setDefaults(realmLat, realmLng, mapScope) {
 	mapScope = new google.maps.LatLngBounds(SW, NE);
 }
 
-function addCircle(map, markerPoint, markerCircle){
+function addCircle(map, markerPoint){
 	markerCircle = new google.maps.Circle({
 		map:map,
 		center:markerPoint,
@@ -35,7 +36,6 @@ function recenterCircle(marker, markerCircle){
 };
 
 function addMarker(event, map){
-	var markerCircle;
 	var markerPoint = event.latLng;
 	var marker = new google.maps.Marker({
 		map:map,
@@ -49,7 +49,7 @@ function addMarker(event, map){
 
 	google.maps.event.addListenerOnce(map, 'click',
 		function() {
-			addCircle(map, markerPoint, markerCircle);
+			addCircle(map, markerPoint);
 		}
 	);
 	google.maps.event.trigger(map, 'click')
@@ -69,29 +69,25 @@ function addMarker(event, map){
 
 
 function initialize() {
-	var realmLat, realmLng, mapScope;
-
 	// setDefaults
 	setDefaults();
-
 	var mapOptions = {
 	    center: new google.maps.LatLng(realmLat, realmLng),
 	    zoom: 8,
 	    mapTypeId: google.maps.MapTypeId.HYBRID
 	};
 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
 	google.maps.event.addListenerOnce(map, 'click',
 		function (e) {
 			addMarker(e, map);
 		}
 	);
-
-	$("#types").on('click', function(){
-		var typeId = String($("#types").val());
-		typeId = "#" + typeId;
+	$("#tag_tag_type_id").on('click', function(){
+		var typeId = String($("#tag_tag_type_id").val());
+		typeId = "#tag_type_" + typeId;
 		radiusDefault = Number($(typeId).val());
 		$("#tag_radius").val(radiusDefault);
+		markerCircle.setRadius(radiusDefault);
 	});
 	map.fitBounds(mapScope);
 };
