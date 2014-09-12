@@ -39,6 +39,9 @@ form.formtastic ol {
 }
 form.formtastic input {width: 100%;}
 form.formtastic select {width: 100%;}
+form.formtastic li.input {
+	margin-bottom: 5px;
+}
 
 
 /*

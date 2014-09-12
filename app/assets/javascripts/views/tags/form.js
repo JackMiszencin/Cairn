@@ -2,8 +2,8 @@ var radiusDefault = Number($("#tag_radius").val());
 var mapScope, realmLat, realmLng, markerCircle;
 
 function setDefaults() {
-	var radiusDegreesY = Number($("#hidden_realm_radius").val() || 90);
-	var radiusDegreesX = Number($("#hidden_realm_radius").val() || 180);
+	var radiusDegreesY = Number($("#hidden_realm_radius").val() || 55);
+	var radiusDegreesX = Number($("#hidden_realm_radius").val() || 100);
 	realmLat = Number($("#hidden_realm_lat").val() || 0);
 	realmLng = Number($("#hidden_realm_lng").val() || 0);
 	var NE = new google.maps.LatLng((realmLat + radiusDegreesY), (realmLng + radiusDegreesX));
@@ -31,8 +31,8 @@ function addCircle(map, markerPoint){
 function recenterCircle(marker, markerCircle){
 	var newLatLng = marker.getPosition();
 	markerCircle.setCenter(newLatLng);
-	$("#tag_lat").val(newLatLng.lat());
-	$("#tag_lng").val(newLatLng.lng());				
+	var lngLatString = 'POINT(' + String(newLatLng.lng()) + ' ' + String(newLatLng.lat()) + ')';
+	$("#tag_center").val(lngLatString);
 };
 
 function addMarker(event, map){
@@ -43,8 +43,8 @@ function addMarker(event, map){
 		position:markerPoint,
 		animation: null
 	});
-	$("#tag_lat").val(markerPoint.lat());
-	$("#tag_lng").val(markerPoint.lng());				
+	var lngLatString = 'POINT(' + String(markerPoint.lng()) + ' ' + String(markerPoint.lat()) + ')';
+	$("#tag_center").val(lngLatString);
 	$("#submit_tag").attr("type", "submit") // TODO: Do we need this? What the fuck is this for?
 
 	google.maps.event.addListenerOnce(map, 'click',
