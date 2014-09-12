@@ -1,11 +1,11 @@
 .row
-	.col-md-6
+	.col-md-6.col-sm-6
 		#map-canvas
-	.col-md-6
+	.col-md-3.col-sm-3
 		= semantic_form_for tag, :url => set_organization_realm_path(@organization.id) do |f|
 			=f.inputs do
 				=f.input :name, :label => false, :placeholder => 'Name'
 				=f.input :radius, :label => false, :placeholder => 'Radius (meters)'
-				=f.input :tag_type_id, :as => :select, :collection => tag_types.map{|t| [t.name, t.id]}, :label => false
+				=f.input :tag_type_id, :as => :select, :collection => tag_types.map{|t| [t.name, t.id]}, :label => false, :include_blank => true, :prompt => 'Select Type'
 		-tag_types.each do |t|
 			%input{:id => "tag_type_#{t.id.to_s}", :value => t.radius, :type => 'hidden'}

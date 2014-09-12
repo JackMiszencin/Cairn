@@ -33,7 +33,12 @@ body.standard-page{
 	Forms
 */
 
-form.formtastic ol {list-style: none;}
+form.formtastic ol {
+	list-style: none;
+	padding-left:5px;
+}
+form.formtastic input {width: 100%;}
+form.formtastic select {width: 100%;}
 
 
 /*
