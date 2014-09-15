@@ -1,5 +1,6 @@
 class Tag < ActiveRecord::Base
 	before_save :set_circle
+	belongs_to :tag_typeexi
 
 	def set_circle
 		ok = true

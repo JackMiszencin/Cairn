@@ -12,8 +12,14 @@ class OrganizationsController < ApplicationController
 	def set_realm
 		get_organization
 		realm = Tag.new(:organization_id => @organization.id)
-		ok = realm.update_attributes(params[:realm])
+		ok = realm.update_attributes(tag_params)
 		flash[:notice] = ok ? 'Organization updated' : 'Failed to update. Please check your info and try again.'
 		return redirect_to organization_path(@organization.id)
+	end
+
+	private
+
+	def tag_params
+		params.require(:tag).permit(:name, :center, :radius, :tag_type_id)
 	end
 end
