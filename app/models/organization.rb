@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
 	has_many :organization_users
 	has_many :users, :through => :organization_users
 	has_many :atlases
-	belongs_to :realm, :class_name => :tag
+	belongs_to :realm, :class_name => 'Tag'
 
 	def tag_types
 		TagType.where('organization_id IS NULL OR organization_id=?', self.id);

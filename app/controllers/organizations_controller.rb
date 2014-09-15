@@ -12,7 +12,8 @@ class OrganizationsController < ApplicationController
 	def set_realm
 		get_organization
 		realm = Tag.new(:organization_id => @organization.id)
-		ok = realm.update_attributes(tag_params)
+		ok = realm.update_attributes(tag_params) && 
+			@organization.update_attributes(:realm_id => realm.id)
 		flash[:notice] = ok ? 'Organization updated' : 'Failed to update. Please check your info and try again.'
 		return redirect_to organization_path(@organization.id)
 	end
