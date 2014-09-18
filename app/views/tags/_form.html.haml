@@ -1,4 +1,6 @@
 .row
+	%h2.col-md-10.col-sm-10= form_header
+.row
 	.col-md-6.col-sm-6
 		#map-canvas
 	.col-md-3.col-sm-3
@@ -12,3 +14,6 @@
 				=f.submit :class => 'btn btn-sm btn-primary'
 		-tag_types.each do |t|
 			%input{:id => "tag_type_#{t.id.to_s}", :value => t.radius, :type => 'hidden'}
+		%input#hidden_realm_radius{:type => 'hidden', :value => (realm ? realm.radius : nil)}
+		%input#hidden_realm_lat{:type => 'hidden', :value => ((realm && realm.center) ? realm.center.y : nil)}
+		%input#hidden_realm_lng{:type => 'hidden', :value => ((realm && realm.center) ? realm.center.x : nil)}

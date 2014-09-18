@@ -1,0 +1,11 @@
+.row
+	.col-md-10
+		%h1= @organization.name
+.row
+	.col-md-2
+	.col-md-10
+		%h2= @atlas.name
+-if flash[:notice]
+	.row
+		%p.text-warning= flash[:notice]
+=render :partial => "/tags/form", :locals => {:tag => @tag, :tag_types => @tag_types, :organization => @organization, :form_header => 'Select a geographical area for your atlas', :realm => @realm}

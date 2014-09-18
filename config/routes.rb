@@ -10,6 +10,9 @@ Cairn::Application.routes.draw do
 
   resources :organizations
   post '/organizations/:id/set_realm' => 'organizations#set_realm', :as => 'set_organization_realm'
+
+  resources :atlases, :path => 'organizations/:organization_id/atlases', :as => 'atlases'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

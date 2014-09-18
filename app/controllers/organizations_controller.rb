@@ -4,11 +4,6 @@ class OrganizationsController < ApplicationController
 		@atlases = Atlas.where(:organization_id => @organization.id)
 	end
 
-	def get_organization
-		@organization = Organization.find(params[:id])
-		return render_404 unless @organization
-	end
-
 	def set_realm
 		get_organization
 		realm = Tag.new(:organization_id => @organization.id)
@@ -19,6 +14,11 @@ class OrganizationsController < ApplicationController
 	end
 
 	private
+
+	def get_organization
+		@organization = Organization.find(params[:id])
+		return render_404 unless @organization
+	end
 
 	def tag_params
 		params.require(:tag).permit(:name, :center, :radius, :tag_type_id)
