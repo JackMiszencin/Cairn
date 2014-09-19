@@ -1,0 +1,10 @@
+.row
+	.col-md-10
+		%h1= @organization.name
+.row
+	.col-md-2
+	.col-md-10
+		%h2= @atlas.name
+-if flash[:notice]
+	.row
+		%p.text-warning= flash[:notice]

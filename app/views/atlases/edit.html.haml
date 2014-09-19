@@ -8,4 +8,4 @@
 -if flash[:notice]
 	.row
 		%p.text-warning= flash[:notice]
-=render :partial => "/tags/form", :locals => {:tag => @tag, :tag_types => @tag_types, :organization => @organization, :form_header => 'Select a geographical area for your atlas', :realm => @realm}
+=render :partial => "/atlases/form", :locals => {:atlas => @atlas, :tag_types => @tag_types, :organization => @organization, :form_header => 'Define your atlas', :realm => @realm, :tag => @tag}

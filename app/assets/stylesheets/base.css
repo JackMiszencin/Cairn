@@ -38,6 +38,7 @@ form.formtastic ol {
 	padding-left:5px;
 }
 form.formtastic input {width: 100%;}
+form.formtastic label input {width: auto;}
 form.formtastic select {width: 100%;}
 form.formtastic li.input {
 	margin-bottom: 5px;

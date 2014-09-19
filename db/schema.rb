@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721003843) do
+ActiveRecord::Schema.define(version: 20140919033226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140721003843) do
     t.text     "type_filters"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "geo_filter"
   end
 
   add_index "atlases", ["organization_id"], :name => "index_atlases_on_organization_id"

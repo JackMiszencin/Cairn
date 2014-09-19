@@ -6,14 +6,5 @@
 	.col-md-3.col-sm-3
 		= semantic_form_for tag, :url => set_organization_realm_path(organization.id) do |f|
 			=f.inputs do
-				=f.input :name, :label => false, :placeholder => 'Name'
-				=f.input :radius, :label => false, :placeholder => 'Radius (meters)'
-				=f.input :center, :as => :hidden
-				=f.input :organization_id, :as => :hidden, :value => organization.id
-				=f.input :tag_type_id, :as => :select, :collection => tag_types.map{|t| [t.name, t.id]}, :label => false, :include_blank => true, :prompt => 'Select Type'
+				=render :partial => '/tags/inputs', :locals => {:f => f, :organization => organization, :tag_types => tag_types, :realm => realm}
 				=f.submit :class => 'btn btn-sm btn-primary'
-		-tag_types.each do |t|
-			%input{:id => "tag_type_#{t.id.to_s}", :value => t.radius, :type => 'hidden'}
-		%input#hidden_realm_radius{:type => 'hidden', :value => (realm ? realm.radius : nil)}
-		%input#hidden_realm_lat{:type => 'hidden', :value => ((realm && realm.center) ? realm.center.y : nil)}
-		%input#hidden_realm_lng{:type => 'hidden', :value => ((realm && realm.center) ? realm.center.x : nil)}
