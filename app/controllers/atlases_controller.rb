@@ -13,19 +13,16 @@ class AtlasesController < ApplicationController
 	end
 
 	def set_realm
-		realm = Tag.new(:organization_id => @organization.id)
-		return realm.update_attributes(tag_params) && 
+		realm = (@atlas.realm || Tag.new(:organization_id => @organization.id))
+		ok = realm.update_attributes(tag_params) && 
 			@atlas.update_attributes(:realm_id => realm.id)
+		return ok
 	end
 
 	def update
 		get_organization
 		get_atlas
-		if (atlas_params[:geo_filter] && atlas_params[:geo_filter.to_s != '0'])
-			puts("Trying to change the realm")
-		end
-		realm_ok = (atlas_params[:geo_filter] && atlas_params[:geo_filter.to_s != '0']) ? set_realm : true
-		puts ("atlas_params" + atlas_params.to_s)
+		realm_ok = (atlas_params[:geo_filter] && atlas_params[:geo_filter].to_s != '0') ? set_realm : true
 		ok = realm_ok && @atlas.update_attributes(atlas_params)
 		flash[:notice] = ok ? 'Updated atlas' : 'Failed to update'
 		return redirect_to atlas_path(@organization.id, @atlas.id)
@@ -44,7 +41,7 @@ class AtlasesController < ApplicationController
 	end
 
 	def atlas_params
-		params.require(:atlas).permit(:name, :geo_filter)
+		params.require(:atlas).permit(:name, :geo_filter, :realm_attributes => [:id])
 	end
 
 	def tag_params

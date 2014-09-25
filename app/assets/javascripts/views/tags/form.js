@@ -59,11 +59,13 @@ function addMarker(event, map){
 	if (radiusDefault) {
 		addCircle(map, markerPoint);
 	}
-	google.maps.event.addListenerOnce(map, 'click',
-		function() {
-			addCircle(map, markerPoint);
-		}
-	);
+
+	// WHY AM I DOING THIS?
+	// google.maps.event.addListenerOnce(map, 'click',
+	// 	function() {
+	// 		addCircle(map, markerPoint);
+	// 	}
+	// );
 	google.maps.event.trigger(map, 'click')
 	google.maps.event.addListener(marker, 'drag', function() {
 		recenterCircle(marker, markerCircle);
@@ -113,8 +115,6 @@ function initialize() {
 	var map = createMap();
 	setRadiusListeners();
 	setTagTypeListener();
-	google.maps.event.addListenerOnce(map, 'click', function (e) { console.log("e", e); addMarker(e, map); });
-
 	map.fitBounds(mapScope);
 
 	if (radiusDefault && latLngDefault) {
@@ -122,6 +122,8 @@ function initialize() {
 			latLng: latLngDefault
 		}
 		addMarker(obj, map);
+	} else {
+		google.maps.event.addListenerOnce(map, 'click', function (e) { console.log("e", e); addMarker(e, map); });
 	}
 
 };
