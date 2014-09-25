@@ -1,10 +1,13 @@
-=f.input :name, :label => false, :placeholder => 'Name', :value => tag.name, :input_html => {:name => 'tag[name]'}
-=f.input :radius, :label => false, :placeholder => 'Radius (meters)', :value => tag.radius, :input_html => {:id => 'tag_radius', :name => 'tag[radius]'}
-=f.input :center, :as => :hidden, :value => tag.center, :input_html => {:id => 'tag_center', :name => 'tag[center]'}
-=f.input :organization_id, :as => :hidden, :value => organization.id, :input_html => {:name => 'tag[organization_id]'}
-=f.input :tag_type_id, :as => :select, :collection => tag_types.map{|t| [t.name, t.id]}, :label => false, :include_blank => true, :prompt => 'Select Type', :value => tag.tag_type_id, :input_html => {:id => 'tag_tag_type_id', :name => 'tag[tag_type_id]'}
+=f.input :name, :label => false, :placeholder => 'Name', :input_html => {:name => 'tag[name]'}
+=f.input :radius, :label => false, :placeholder => 'Radius (meters)', :input_html => {:id => 'tag_radius', :name => 'tag[radius]'}
+=f.input :center, :as => :hidden, :input_html => {:id => 'tag_center', :name => 'tag[center]'}
+=f.input :organization_id, :as => :hidden, :input_html => {:name => 'tag[organization_id]'}
+=f.input :tag_type_id, :as => :select, :collection => tag_types.map{|t| [t.name, t.id]}, :label => false, :include_blank => true, :prompt => 'Select Type', :input_html => {:id => 'tag_tag_type_id', :name => 'tag[tag_type_id]'}
 
 -# The below inputs are not sent on submit but rather store values for form.js
+%input#hidden_tag_lat{:type => 'hidden', :value => ((tag && tag.center) ? tag.center.y : nil)}
+%input#hidden_tag_lng{:type => 'hidden', :value => ((tag && tag.center) ? tag.center.x : nil)}
+
 -tag_types.each do |t|
 	%input{:id => "tag_type_#{t.id.to_s}", :value => t.radius, :type => 'hidden'}
 %input#hidden_realm_radius{:type => 'hidden', :value => (realm ? (realm.radius * realm.deg_per_met) : nil)}
