@@ -2,18 +2,22 @@ var radiusDefault, latLngDefault;
 var mapScope, realmLat, realmLng, markerCircle;
 
 function setDefaults() {
+	var radiusDegreesDefault;
 	if ($("#tag_radius").val()) {
 		radiusDefault = Number($("#tag_radius").val());
+	}
+	if ($("#hidden_tag_radius_degrees").val()) {
+		radiusDegreesDefault = Number($("#hidden_tag_radius_degrees").val());
 	}
 	var latDefault = $("#hidden_tag_lat").val();
 	var lngDefault = $("#hidden_tag_lng").val();
 	if (latDefault && lngDefault) {
 		latLngDefault = new google.maps.LatLng(Number(latDefault), Number(lngDefault));
 	}
-	var radiusDegreesY = Number($("#hidden_realm_radius").val() || 55);
-	var radiusDegreesX = Number($("#hidden_realm_radius").val() || 100);
-	realmLat = Number($("#hidden_realm_lat").val() || 0);
-	realmLng = Number($("#hidden_realm_lng").val() || 0);
+	var radiusDegreesY = Number(radiusDegreesDefault || $("#hidden_realm_radius").val() || 55);
+	var radiusDegreesX = Number(radiusDegreesDefault || $("#hidden_realm_radius").val() || 100);
+	realmLat = Number(latDefault || $("#hidden_realm_lat").val() || 0);
+	realmLng = Number(lngDefault || $("#hidden_realm_lng").val() || 0);
 	var NE = new google.maps.LatLng((realmLat + radiusDegreesY), (realmLng + radiusDegreesX));
 	var SW = new google.maps.LatLng((realmLat - radiusDegreesY), (realmLng - radiusDegreesX));
 	mapScope = new google.maps.LatLngBounds(SW, NE);
@@ -53,19 +57,8 @@ function addMarker(event, map){
 	});
 	var lngLatString = 'POINT(' + String(markerPoint.lng()) + ' ' + String(markerPoint.lat()) + ')';
 	$("#tag_center").val(lngLatString);
-	$("#submit_tag").attr("type", "submit") // TODO: Do we need this? What the fuck is this for?
 
-	// If setDefaults() has assigned us a default radius already, we might as well make it a circle.
-	if (radiusDefault) {
-		addCircle(map, markerPoint);
-	}
-
-	// WHY AM I DOING THIS?
-	// google.maps.event.addListenerOnce(map, 'click',
-	// 	function() {
-	// 		addCircle(map, markerPoint);
-	// 	}
-	// );
+	addCircle(map, markerPoint);
 	google.maps.event.trigger(map, 'click')
 	google.maps.event.addListener(marker, 'drag', function() {
 		recenterCircle(marker, markerCircle);
@@ -123,7 +116,7 @@ function initialize() {
 		}
 		addMarker(obj, map);
 	} else {
-		google.maps.event.addListenerOnce(map, 'click', function (e) { console.log("e", e); addMarker(e, map); });
+		google.maps.event.addListenerOnce(map, 'click', function (e) { addMarker(e, map); });
 	}
 
 };

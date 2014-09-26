@@ -1,7 +1,7 @@
 .row
 	%h2.col-md-10.col-sm-10= form_header
 .row
-	.col-md-6.col-sm-6
+	.col-md-6.col-sm-6#map-domain
 		#map-canvas
 	.col-md-3.col-sm-3
 		= semantic_form_for atlas, :url => (atlas.new_record? ? atlases_path : atlas_path(organization.id, atlas.id)), :method => (atlas.new_record? ? 'post' : 'put') do |f|
@@ -10,6 +10,6 @@
 				%li.label Use geographic filter?
 				=f.input :geo_filter, :as => :boolean, :label => false
 			=f.inputs do
-				=f.semantic_fields_for :realm do |r|
+				=f.semantic_fields_for tag do |r|
 					=render :partial => '/tags/inputs', :locals => {:f => r, :organization => organization, :tag_types => tag_types, :realm => realm, :tag => tag}
 				=f.submit :class => 'btn btn-sm btn-primary'

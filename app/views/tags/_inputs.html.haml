@@ -7,6 +7,7 @@
 -# The below inputs are not sent on submit but rather store values for form.js
 %input#hidden_tag_lat{:type => 'hidden', :value => ((tag && tag.center) ? tag.center.y : nil)}
 %input#hidden_tag_lng{:type => 'hidden', :value => ((tag && tag.center) ? tag.center.x : nil)}
+%input#hidden_tag_radius_degrees{:type => 'hidden', :value => ((tag && tag.radius && tag.center) ? (tag.radius * tag.deg_per_met) : nil)}
 
 -tag_types.each do |t|
 	%input{:id => "tag_type_#{t.id.to_s}", :value => t.radius, :type => 'hidden'}
