@@ -3,6 +3,6 @@
 -if current_user
 	%p.organization_name= @organization.name
 	-unless @organization.realm
-		=render :partial => "/tags/form", :locals => {:tag => @new_realm, :tag_types => @tag_types, :organization => @organization, :form_header => 'Select a geographical area for your organization'}
+		=render :partial => "/tags/form", :locals => {:tag => @new_realm, :tag_types => @tag_types, :organization => @organization, :form_header => 'Select a geographical area for your organization', :realm => nil}
 -else
 	= render :partial => "signin_signup"

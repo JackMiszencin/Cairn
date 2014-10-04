@@ -8,5 +8,5 @@
 		= render :partial => "/users/sessions/form", :locals => {:resource => @user, :resource_name => :user}
 	.col-12#signup_form.hide
 		= render :partial => "/users/registrations/form", :locals => {:resource => @user, :resource_name => :user}		
-
-=javascript_include_tag 'views/page/signin_signup'
+=content_for :end_body do
+	=javascript_include_tag 'views/page/signin_signup'

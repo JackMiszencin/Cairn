@@ -7,6 +7,14 @@ class AtlasesController < ApplicationController
 		@realm = @organization.realm
 	end
 
+	def new
+		get_organization
+		@atlas = Atlas.new(:organization_id => @organization.id)
+		@tag_types = @organization.tag_types
+		@tag = Tag.new
+		@realm = @organization.realm
+	end
+
 	def show
 		get_organization
 		get_atlas
@@ -26,6 +34,23 @@ class AtlasesController < ApplicationController
 		ok = realm_ok && @atlas.update_attributes(atlas_params)
 		flash[:notice] = ok ? 'Updated atlas' : 'Failed to update'
 		return redirect_to atlas_path(@organization.id, @atlas.id)
+	end
+
+	def create
+		get_organization
+		@atlas = Atlas.new(:organization_id => @organization.id)
+		realm_ok = nil
+		atlas_ok = @atlas.update_attributes(atlas_params)
+		if atlas_ok
+			realm_ok = (atlas_params[:geo_filter] && atlas_params[:geo_filter].to_s != '0') ? set_realm : true
+		end
+		if atlas_ok && realm_ok
+			flash[:notice] = 'Successfully created atlas'
+			return redirect_to atlases_path(@organization.id)
+		else
+			flash[:notice] = 'Failed to create atlas'
+			return redirect_to new_atlas_path(@organization.id) 
+		end
 	end
 
 	private

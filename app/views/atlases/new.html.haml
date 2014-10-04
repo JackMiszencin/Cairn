@@ -1,0 +1,11 @@
+.row
+	.col-md-10
+		%h1= @organization.name
+.row
+	.col-md-2
+	.col-md-10
+		%h2 New Atlas
+-if flash[:notice]
+	.row
+		%p.text-warning= flash[:notice]
+=render :partial => "/atlases/form", :locals => {:atlas => @atlas, :tag_types => @tag_types, :organization => @organization, :form_header => 'Define your atlas', :realm => @realm, :tag => @tag}

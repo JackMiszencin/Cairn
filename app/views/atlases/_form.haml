@@ -1,3 +1,7 @@
+=content_for :head do
+	= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAYQDEv0bZNaE9pQEZXOYQbaSVQ2grJ8fg&sensor=true"
+=content_for :end_body do
+	= javascript_include_tag 'views/tags/form'
 .row
 	%h2.col-md-10.col-sm-10= form_header
 .row
@@ -11,5 +15,5 @@
 				=f.input :geo_filter, :as => :boolean, :label => false
 			=f.inputs do
 				=f.semantic_fields_for tag do |r|
-					=render :partial => '/tags/inputs', :locals => {:f => r, :organization => organization, :tag_types => tag_types, :realm => realm, :tag => tag}
+					=render :partial => '/tags/inputs', :locals => {:f => r, :organization => organization, :tag_types => tag_types, :realm => (realm || nil), :tag => tag}
 				=f.submit :class => 'btn btn-sm btn-primary'
