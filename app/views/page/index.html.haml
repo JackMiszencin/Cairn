@@ -1,8 +1,8 @@
 -if flash[:notice]
 	%p.notice= flash[:notice]
 -if current_user
-	%p.organization_name= @organization.name
+	%a.organization_name{:href => organization_path(@organization.id)}= @organization.name
 	-unless @organization.realm
-		=render :partial => "/tags/form", :locals => {:tag => @new_realm, :tag_types => @tag_types, :organization => @organization, :form_header => 'Select a geographical area for your organization', :realm => nil}
+		=render :partial => "/tags/form", :locals => {:tag => @new_realm, :tag_types => @tag_types, :organization => @organization, :form_header => 'Select a geographical area for your organization', :realm => nil, :tag_is_realm => true}
 -else
 	= render :partial => "signin_signup"

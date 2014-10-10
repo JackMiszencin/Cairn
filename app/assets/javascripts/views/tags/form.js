@@ -120,6 +120,15 @@ function initialize() {
 	}
 
 };
-if (typeof google !== 'undefined') {
-	google.maps.event.addDomListener(window, 'load', initialize);
-}
+
+function waitForScript() {
+	console.log("waitForScript");
+	if (typeof google !== 'undefined') {
+		google.maps.event.addDomListener(window, 'load', initialize);
+		return true;
+	} else {
+		setTimeout(waitForScript, 50);
+	}
+};
+
+waitForScript();

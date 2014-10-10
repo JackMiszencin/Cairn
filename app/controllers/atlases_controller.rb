@@ -22,7 +22,8 @@ class AtlasesController < ApplicationController
 
 	def set_realm
 		realm = (@atlas.realm || Tag.new(:organization_id => @organization.id))
-		ok = realm.update_attributes(tag_params) && 
+		realm_attrs = tag_params.merge({:name => @atlas.name})
+		ok = realm.update_attributes(realm_attrs) && 
 			@atlas.update_attributes(:realm_id => realm.id)
 		return ok
 	end
@@ -46,7 +47,7 @@ class AtlasesController < ApplicationController
 		end
 		if atlas_ok && realm_ok
 			flash[:notice] = 'Successfully created atlas'
-			return redirect_to atlases_path(@organization.id)
+			return redirect_to organization_path(@organization.id)
 		else
 			flash[:notice] = 'Failed to create atlas'
 			return redirect_to new_atlas_path(@organization.id) 

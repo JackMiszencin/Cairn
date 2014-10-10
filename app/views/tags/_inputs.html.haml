@@ -1,4 +1,17 @@
-=f.input :name, :label => false, :placeholder => 'Name', :input_html => {:name => 'tag[name]'}
+-# locals you need to define when rendering this partial:
+-# 'f': the form variable passed through the semantic_form_for block
+-# 'tag': the actual tag you are assigning values to
+-# 'tag_types': the tag_types available to the parent organization or atlas
+-# 'organization': the tag's parent organization
+-# 'realm': the realm of the parent atlas or organization--the geographical area on which we will focus the map
+-# 'tag_is_realm': whether the tag we are using will be used as a relam for an atlas or organization
+
+/ =content_for :head do
+=content_for :end_body do
+	= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAYQDEv0bZNaE9pQEZXOYQbaSVQ2grJ8fg&sensor=true"
+	= javascript_include_tag 'views/tags/form'
+-if !tag_is_realm # No name input if we're creating a realm for an atlas or organization
+	=f.input :name, :label => false, :placeholder => 'Name', :input_html => {:name => 'tag[name]'}
 =f.input :radius, :label => false, :placeholder => 'Radius (meters)', :input_html => {:id => 'tag_radius', :name => 'tag[radius]'}
 =f.input :center, :as => :hidden, :input_html => {:id => 'tag_center', :name => 'tag[center]'}
 =f.input :organization_id, :as => :hidden, :input_html => {:name => 'tag[organization_id]'}

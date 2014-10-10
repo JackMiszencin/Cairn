@@ -1,7 +1,10 @@
-=content_for :head do
-	= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAYQDEv0bZNaE9pQEZXOYQbaSVQ2grJ8fg&sensor=true"
-=content_for :end_body do
-	= javascript_include_tag 'views/tags/form'
+-# locals you need to define when rendering this partial:
+-# 'tag': the actual tag you are assigning values to
+-# 'tag_types': the tag_types available to the parent organization or atlas
+-# 'organization': the tag's parent organization
+-# 'form_header': the message you want at the top of the form
+-# 'realm': the realm of the parent atlas or organization--the geographical area on which we will focus the map
+-# 'tag_is_realm': whether the tag we are using will be used as a relam for an atlas or organization
 .row
 	%h2.col-md-10.col-sm-10= form_header
 .row
@@ -15,5 +18,5 @@
 				=f.input :geo_filter, :as => :boolean, :label => false
 			=f.inputs do
 				=f.semantic_fields_for tag do |r|
-					=render :partial => '/tags/inputs', :locals => {:f => r, :organization => organization, :tag_types => tag_types, :realm => (realm || nil), :tag => tag}
+					=render :partial => '/tags/inputs', :locals => {:f => r, :organization => organization, :tag_types => tag_types, :realm => (realm || nil), :tag => tag, :tag_is_realm => true}
 				=f.submit :class => 'btn btn-sm btn-primary'

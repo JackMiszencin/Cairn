@@ -6,5 +6,5 @@
 	.col-md-3.col-sm-3
 		= semantic_form_for tag, :url => set_organization_realm_path(organization.id) do |f|
 			=f.inputs do
-				=render :partial => '/tags/inputs', :locals => {:f => f, :organization => organization, :tag_types => tag_types, :realm => realm, :tag => tag}
+				=render :partial => '/tags/inputs', :locals => {:f => f, :organization => organization, :tag_types => tag_types, :realm => realm, :tag => tag, :tag_is_realm => tag_is_realm}
 				=f.submit :class => 'btn btn-sm btn-primary'
