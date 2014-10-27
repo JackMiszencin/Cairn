@@ -11,37 +11,33 @@ class Tag < ActiveRecord::Base
 		} % [geo])
 	}
 
+	# Tag.declare_get_relevance must be run before this scope is used
+	# TODO: Write test to ensure this is returning in descending order
 	scope :sort_by_relevance, -> (geo) {
-		order(%{
-			(
-				(
-					st_area(
-						ST_Intersection(
-							tags.shape,
-							ST_GeographyFromText('SRID=4326;%s')
-						)
-					) *
-					st_area(
-						ST_Intersection(
-							tags.shape,
-							ST_GeographyFromText('SRID=4326;%s')
-						)
-					)
-				) /
-				(
-					st_area(
-						ST_GeographyFromText('SRID=4326;%s')
-					) *
-					st_area(					
-						tags.shape
-					)
-				)
-			)
-		} % [geo, geo, geo])
+		order(%{get_relevance(ST_GeographyFromText('SRID=4326;%s'), tags.shape) DESC} % [geo])
 	}
 
+	# returns an array of all tags which intersect current tag, sorted in order of 
 	def relevant_tags
-		Tag.intersects_geometry(self.shape).sort_by_relevance(self.shape)
+		Tag.declare_get_relevance
+		Tag.intersects_geometry(self.shape).sort_by_relevance(self.shape).to_a
+	end
+
+	# Must be run before any SQL query using the get_relevance function
+	def self.declare_get_relevance
+		ActiveRecord::Base.connection.execute("
+			DROP FUNCTION IF EXISTS get_relevance(geoOne GEOGRAPHY, geoTwo GEOGRAPHY);
+			CREATE FUNCTION get_relevance(geoOne GEOGRAPHY, geoTwo GEOGRAPHY) RETURNS FLOAT AS $$
+			DECLARE
+				sharedArea FLOAT;
+				relevanceScore FLOAT;
+			BEGIN
+				sharedArea := (st_area(ST_Intersection(geoOne, geoTwo)));
+				relevanceScore := (sharedArea * sharedArea) / (st_area(geoOne) * st_area(geoTwo));
+				RETURN relevanceScore;
+			END;
+			$$ LANGUAGE plpgsql;
+		");
 	end
 
 	def set_circle
