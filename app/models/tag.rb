@@ -20,7 +20,9 @@ class Tag < ActiveRecord::Base
 	# returns an array of all tags which intersect current tag, sorted in order of 
 	def relevant_tags
 		Tag.declare_get_relevance
-		Tag.intersects_geometry(self.shape).sort_by_relevance(self.shape).to_a
+		Tag.intersects_geometry(self.shape).sort_by_relevance(self.shape).to_a.reject{ |x| 
+			x.id == self.id
+		}
 	end
 
 	# Must be run before any SQL query using the get_relevance function
