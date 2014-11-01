@@ -1,11 +1,12 @@
 class OrganizationsController < ApplicationController
+	before_filter :authenticate_user!
+	before_filter :get_organization
+
 	def show
-		get_organization
 		@atlases = Atlas.where(:organization_id => @organization.id)
 	end
 
 	def set_realm
-		get_organization
 		realm = Tag.new(:organization_id => @organization.id, :name => @organization.name)
 		ok = realm.update_attributes(tag_params) && 
 			@organization.update_attributes(:realm_id => realm.id)
@@ -17,7 +18,7 @@ class OrganizationsController < ApplicationController
 
 	def get_organization
 		@organization = Organization.find(params[:id])
-		return render_404 unless @organization
+		return render_404 unless @organization && current_user && current_user.is_org_user(@organization.id)
 	end
 
 	def tag_params

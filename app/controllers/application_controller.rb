@@ -35,6 +35,13 @@ class ApplicationController < ActionController::Base
   	end
   end
 
+  private
+
+  def get_organization_for_user #IMPORTANT: uses organization_id param
+    @organization = Organization.find(params[:organization_id])
+    return render_404 unless @organization && current_user && current_user.is_org_user(@organization.id)
+  end
+
   protected
 
   def configure_permitted_parameters

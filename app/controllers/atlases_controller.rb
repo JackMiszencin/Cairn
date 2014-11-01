@@ -1,6 +1,8 @@
 class AtlasesController < ApplicationController
+	before_filter :authenticate_user!
+	before_filter :get_organization_for_user
+
 	def edit
-		get_organization
 		get_atlas
 		@tag_types = @organization.tag_types
 		@tag = (@atlas.realm || Tag.new)
@@ -8,7 +10,6 @@ class AtlasesController < ApplicationController
 	end
 
 	def new
-		get_organization
 		@atlas = Atlas.new(:organization_id => @organization.id)
 		@tag_types = @organization.tag_types
 		@tag = Tag.new
@@ -16,7 +17,6 @@ class AtlasesController < ApplicationController
 	end
 
 	def show
-		get_organization
 		get_atlas
 	end
 
@@ -29,7 +29,6 @@ class AtlasesController < ApplicationController
 	end
 
 	def update
-		get_organization
 		get_atlas
 		realm_ok = (atlas_params[:geo_filter] && atlas_params[:geo_filter].to_s != '0') ? set_realm : true
 		ok = realm_ok && @atlas.update_attributes(atlas_params)
@@ -38,7 +37,6 @@ class AtlasesController < ApplicationController
 	end
 
 	def create
-		get_organization
 		@atlas = Atlas.new(:organization_id => @organization.id)
 		realm_ok = nil
 		atlas_ok = @atlas.update_attributes(atlas_params)
@@ -55,11 +53,6 @@ class AtlasesController < ApplicationController
 	end
 
 	private
-
-	def get_organization
-		@organization = Organization.find(params[:organization_id])
-		return render_404 unless @organization
-	end
 
 	def get_atlas
 		@atlas = Atlas.find(params[:id])
