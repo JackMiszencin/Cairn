@@ -62,6 +62,26 @@ span.js-link {
 	cursor: pointer;
 }
 
+
+
+/*
+	Google Maps Elements
+*/
+
+#map-domain {
+	background-color: black;
+	color:white;
+}
+
+#map-domain p#no-map-notice {
+	position: absolute;
+	margin-right: 30%;
+	margin-left: 30%;
+	width: 40%;
+	height: 50vh;
+	padding-top: 22vh;
+}
+
 #map-canvas {
-	height:50vh;
+	height: 50vh;
 }

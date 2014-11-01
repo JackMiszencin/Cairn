@@ -103,6 +103,21 @@ function setTagTypeListener() {
 	$("#tag_tag_type_id").on('keyup', tagTypeCallback);
 }
 
+function setZIndex() {
+	var geo_filter = $("#atlas_geo_filter").prop("checked"); // Boolean
+	if (geo_filter) {
+		$("#map-canvas").css("z-index", 0);		
+	} else {
+		$("#map-canvas").css("z-index", -1);
+	}
+}
+
+function setZIndexListeners() {
+	$("#atlas_geo_filter").on("click", function() {
+		setZIndex();
+	});
+}
+
 function initialize() {
 	setDefaults();
 	var map = createMap();
@@ -119,15 +134,22 @@ function initialize() {
 		google.maps.event.addListenerOnce(map, 'click', function (e) { addMarker(e, map); });
 	}
 
+	if ($("#atlas_geo_filter").length > 0) {
+		setZIndex();
+		setZIndexListeners();
+		setTimeout(function() {
+			$("#map-domain").prepend("<p id='no-map-notice'>This atlas has no geographic specification</p>");
+		}, 300);
+	}
+
 };
 
 function waitForScript() {
-	console.log("waitForScript");
 	if (typeof google !== 'undefined') {
 		google.maps.event.addDomListener(window, 'load', initialize);
 		return true;
 	} else {
-		setTimeout(waitForScript, 50);
+		setTimeout(waitForScript, 5);
 	}
 };
 

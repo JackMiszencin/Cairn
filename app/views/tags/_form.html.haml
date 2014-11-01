@@ -1,7 +1,7 @@
 .row
 	%h2.col-md-10.col-sm-10= form_header
 .row
-	.col-md-6.col-sm-6
+	.col-md-6.col-sm-6#map-domain
 		#map-canvas
 	.col-md-3.col-sm-3
 		= semantic_form_for tag, :url => set_organization_realm_path(organization.id) do |f|
